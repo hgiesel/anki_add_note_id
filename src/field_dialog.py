@@ -3,6 +3,7 @@ from typing import Optional
 
 from aqt import AnkiQt
 from aqt.fields import FieldDialog
+from aqt.gui_hooks import state_did_reset
 
 from anki.models import NoteType
 from anki.hooks import wrap
@@ -38,20 +39,23 @@ def load_noteid_option(self, idx):
     f = self.form
     f.noteid.setChecked(fld['meta'] == 'noteid' if 'meta' in fld else False)
 
-def add_noteid_to_notes(self):
-    save_noteid_option(self)
+def add_upon_reset(self):
+    def add_noteids():
+        mid = self.model['id']
+        nids = self.col.db.list(f'select id from notes where mid == {mid}')
+        flds = self.model['flds']
 
-    mid = self.model['id']
-    nids = self.col.db.list(f'select id from notes where mid == {mid}')
-    flds = self.model['flds']
+        for id, fld in enumerate(flds):
+            if 'meta' in fld and fld['meta'] == 'noteid':
+                for nid in nids:
+                    note = self.col.getNote(nid)
+                    note.fields[id] = str(note.id)
 
-    for id, fld in enumerate(flds):
-        if 'meta' in fld and fld['meta'] == 'noteid':
-            for nid in nids:
-                note = self.col.getNote(nid)
-                note.fields[id] = str(note.id)
+                    note.flush()
 
-                note.flush()
+        state_did_reset.remove(add_noteids)
+
+    state_did_reset.append(add_noteids)
 
 def init_field_dialog():
     # setupSignals is called before executing QDialog
@@ -60,4 +64,4 @@ def init_field_dialog():
     FieldDialog.saveField = wrap(FieldDialog.saveField, save_noteid_option, 'after')
     FieldDialog.loadField = wrap(FieldDialog.loadField, load_noteid_option, 'after')
 
-    FieldDialog.accept = wrap(FieldDialog.accept, add_noteid_to_notes, 'before')
+    FieldDialog.accept = wrap(FieldDialog.accept, add_upon_reset, 'before')
