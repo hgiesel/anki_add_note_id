@@ -1,5 +1,3 @@
 = Ze Add Note ID
 
 Autofills a field with note ID of the card
-
-
