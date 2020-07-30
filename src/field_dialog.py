@@ -8,6 +8,8 @@ from aqt.gui_hooks import state_did_reset
 from anki.models import NoteType
 from anki.hooks import wrap
 
+from .utils import reduce_setting_keyword, reduce_value
+
 def init_noteid_option(self):
     noteid_cb = QtWidgets.QCheckBox('Insert note id (overwrites current content!)')
 
@@ -45,12 +47,15 @@ def add_upon_reset(self):
         nids = self.col.db.list(f'select id from notes where mid == {mid}')
         flds = self.model['flds']
 
+        reduce = self.col.get_config(reduce_setting_keyword, False)
+
         for id, fld in enumerate(flds):
             if 'meta' in fld and fld['meta'] == 'noteid':
                 for nid in nids:
                     note = self.col.getNote(nid)
-                    note.fields[id] = str(note.id)
+                    noteid = note.id - reduce_value if reduce else note.id
 
+                    note.fields[id] = str(noteid)
                     note.flush()
 
         state_did_reset.remove(add_noteids)

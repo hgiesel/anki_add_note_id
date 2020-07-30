@@ -7,6 +7,8 @@ from aqt.gui_hooks import (
     add_cards_did_add_note,
 )
 
+from .utils import reduce_setting_keyword, copy_setting_keyword, reduce_value
+
 def copy_to_clipboard(text):
     mw.app.clipboard().setText(text)
 
@@ -27,14 +29,16 @@ def make_unique_for_dupe_check(problem, note):
 
 def fill_with_noteid(note):
     flds = note.model()['flds']
+    reduce = mw.col.get_config(reduce_setting_keyword, False)
+
+    noteid = note.id - reduce_value if reduce else note.id
 
     for id, fld in enumerate(flds):
         if 'meta' in fld and fld['meta'] == 'noteid':
-            note.fields[id] = str(note.id)
+            note.fields[id] = str(noteid)
 
-    # TODO this probably deserves its own add-on
     if mw.pm.profile.get('copyNoteidToClipboard'):
-        copy_to_clipboard(str(note.id))
+        copy_to_clipboard(str(noteid))
 
     note.flush()
 
