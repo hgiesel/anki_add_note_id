@@ -15,13 +15,13 @@ class Settings(QDialog):
 
         self.layout().setSizeConstraint(QLayout.SetFixedSize)
 
-    def setupUi(self, reduceNoteId, copyNoteId):
-        self.ui.reduceNoteId.setChecked(reduceNoteId)
+    def setupUi(self, keepNoteId, copyNoteId):
+        self.ui.keepNoteId.setChecked(keepNoteId)
         self.ui.copyNoteId.setChecked(copyNoteId)
 
     def accept(self):
-        reduce = self.ui.reduceNoteId.isChecked()
+        keep = self.ui.keepNoteId.isChecked()
         copy = self.ui.copyNoteId.isChecked()
 
-        self.cb(reduce, copy)
+        self.cb(keep, copy)
         super().accept()

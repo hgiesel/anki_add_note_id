@@ -21,9 +21,9 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QCheckBox" name="reduceNoteId">
+    <widget class="QCheckBox" name="keepNoteId">
      <property name="text">
-      <string>Reduce note ID by 15e11 (compatibility)</string>
+      <string>Do not overwrite note ID fields</string>
      </property>
     </widget>
    </item>

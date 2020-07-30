@@ -1,4 +1,5 @@
-reduce_setting_keyword = 'addReducedNoteId'
+keep_setting_keyword = 'keepOldNoteIds'
 copy_setting_keyword = 'copyNoteidToClipboard'
 
-reduce_value = int(15e11)
+# deprecated
+reduce_setting_keyword = 'addReducedNoteId'
