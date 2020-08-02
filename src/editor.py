@@ -25,7 +25,7 @@ def hide_noteid_fields_and_fix_content(js, note, editor):
             newjs += get_hider_js(fid) if editor.addMode else get_const_js(fid)
 
             # fix noteid in case it was changed by accident or created on mobile
-            if not keep:
+            if not editor.addMode and not keep:
                 fld_name = fld['name']
                 newjs = sub(f'"{fld_name}", ".*?"', f'"{fld_name}", "{note.id}"', newjs)
 
