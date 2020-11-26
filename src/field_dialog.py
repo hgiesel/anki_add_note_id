@@ -11,10 +11,13 @@ from anki.hooks import wrap
 from .utils import keep_setting_keyword
 
 def init_noteid_option(self):
-    noteid_cb = QtWidgets.QCheckBox('Insert note id (overwrites current content!)')
+    self.form.noteid = QtWidgets.QCheckBox('Insert note id (overwrites current content!)')
 
-    self.form.noteid = noteid_cb
-    self.form._2.addWidget(self.form.noteid, 4, 1)
+    self.form._2.addWidget(
+        self.form.noteid,
+        self.form._2.rowCount() + 1,
+        1,
+    )
 
 def bools_to_meta_state(noteid: bool) -> Optional[str]:
     if noteid:
