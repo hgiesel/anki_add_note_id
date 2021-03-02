@@ -10,7 +10,7 @@ def get_hider_js(id: int):
 
 
 def get_const_js(id: int):
-    return f'getEditorField({id}).setAttribute("contenteditable", false); '
+    return f'getEditorField({id}).editingArea.editable.removeAttribute("contenteditable"); '
 
 
 def hide_noteid_fields_and_fix_content(js, note, editor):
