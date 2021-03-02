@@ -9,16 +9,18 @@ from aqt.gui_hooks import (
 
 from .utils import keep_setting_keyword, copy_setting_keyword
 
+
 def copy_to_clipboard(text):
     mw.app.clipboard().setText(text)
 
-def make_unique_for_dupe_check(problem, note):
-    flds = note.model()['flds']
 
-    random_string = ''.join(choice(hexdigits) for i in range(30))
+def make_unique_for_dupe_check(problem, note):
+    flds = note.model()["flds"]
+
+    random_string = "".join(choice(hexdigits) for i in range(30))
 
     for id, fld in enumerate(flds):
-        if 'meta' in fld and fld['meta'] == 'noteid':
+        if "meta" in fld and fld["meta"] == "noteid":
             note.fields[id] = random_string
 
     ret = note.dupeOrEmpty()
@@ -27,17 +29,19 @@ def make_unique_for_dupe_check(problem, note):
 
     return problem
 
+
 def fill_with_noteid(note):
-    flds = note.model()['flds']
+    flds = note.model()["flds"]
 
     for id, fld in enumerate(flds):
-        if 'meta' in fld and fld['meta'] == 'noteid':
+        if "meta" in fld and fld["meta"] == "noteid":
             note.fields[id] = str(note.id)
 
-    if mw.pm.profile.get('copyNoteidToClipboard'):
+    if mw.pm.profile.get("copyNoteidToClipboard"):
         copy_to_clipboard(str(note.id))
 
     note.flush()
+
 
 def init_addcards():
     add_cards_will_add_note.append(make_unique_for_dupe_check)

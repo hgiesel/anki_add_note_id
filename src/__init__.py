@@ -6,8 +6,10 @@ from .addon_manager import init_addon_manager
 from aqt import mw
 from .utils import reduce_setting_keyword
 
+
 def remove_deprecated():
     mw.col.remove_config(reduce_setting_keyword)
+
 
 def init():
     init_field_dialog()
