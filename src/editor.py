@@ -5,10 +5,7 @@ from aqt.gui_hooks import editor_will_load_note
 from .utils import keep_setting_keyword
 
 def get_hider_js(id: int):
-    return (
-        f'document.body.querySelector(`#name{id}`).style.display = "none"; ' +
-        f'document.body.querySelector(`#f{id}`).style.display = "none"; '
-    )
+    return f'getEditorField(`{id}`).style.display = "none"; '
 
 def get_const_js(id: int):
     return f'document.body.querySelector(`#f{id}`).setAttribute("contenteditable", false); '
