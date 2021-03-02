@@ -6,11 +6,11 @@ from .utils import keep_setting_keyword
 
 
 def get_hider_js(id: int):
-    return f'getEditorField(`{id}`).style.display = "none"; '
+    return f'getEditorField({id}).style.display = "none"; '
 
 
 def get_const_js(id: int):
-    return f'document.body.querySelector(`#f{id}`).setAttribute("contenteditable", false); '
+    return f'getEditorField({id}).setAttribute("contenteditable", false); '
 
 
 def hide_noteid_fields_and_fix_content(js, note, editor):
