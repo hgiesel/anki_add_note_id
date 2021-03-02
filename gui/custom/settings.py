@@ -2,6 +2,7 @@ from aqt import QDialog, QLayout
 
 from ..settings_ui import Ui_Settings
 
+
 class Settings(QDialog):
     def __init__(self, mw, callback):
         super().__init__(parent=mw)
