@@ -17,7 +17,7 @@ def show_settings():
 
     dialog.setupUi(keep, copy)
 
-    return dialog.exec_()
+    return dialog.exec()
 
 
 def init_addon_manager():

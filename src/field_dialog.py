@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from aqt.qt import QCheckBox
 from typing import Optional
 
 from aqt import AnkiQt
@@ -12,7 +12,7 @@ from .utils import keep_setting_keyword
 
 
 def init_noteid_option(self):
-    self.form.noteid = QtWidgets.QCheckBox(
+    self.form.noteid = QCheckBox(
         "Insert note id (overwrites current content!)"
     )
 
