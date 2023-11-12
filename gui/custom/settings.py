@@ -14,7 +14,7 @@ class Settings(QDialog):
 
         self.cb = callback
 
-        self.layout().setSizeConstraint(QLayout.SetFixedSize)
+        self.layout().setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
     def setupUi(self, keepNoteId, copyNoteId):
         self.ui.keepNoteId.setChecked(keepNoteId)
